@@ -11,17 +11,15 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class InsertAction extends ActionSupport {
 	/**
-	 * 結果
+	 * result 結果
+	 * siteName サイト名
+	 * url サイトURL
+	 * insertErrormsg エラーメッセージ
 	 */
-	private String result;
-	/**
-	 * サイト名
-	 */
+	private String result = ERROR;;
 	private String siteName;
-	/**
-	 * URL
-	 */
 	private String url;
+	private String insertErrormsg;
 	/**
 	 * 入力された値をDBに登録し、resultを返すメソッド
 	 * @author Arima Genki
@@ -30,24 +28,16 @@ public class InsertAction extends ActionSupport {
 	 * @throws Exception
 	 * @see InsertDAO
 	 */
-	public String execute() throws Exception{
+
+	public String execute(){
 		InsertDAO dao = new InsertDAO();
-		System.out.println(siteName);
-		System.out.println(url);
 		if(dao.insert(siteName,url)){
 			result = "success";
-			return result;
+			insertErrormsg = "";
+		} else {
+			insertErrormsg = "*入力された情報が正しくありません。";
 		}
 		return result;
-	}
-	/**
-	 * サイト名取得メソッド
-	 * @author Arima Genki
-	 * @since 2016/06/016
-	 * @return siteName
-	 */
-	public String getSiteName() {
-		return siteName;
 	}
 	/**
 	 * サイト名格納メソッド
@@ -59,15 +49,6 @@ public class InsertAction extends ActionSupport {
 		this.siteName = siteName;
 	}
 	/**
-	 * URL取得メソッド
-	 * @author Arima Genki
-	 * @since 2016/06/016
-	 * @return url
-	 */
-	public String getUrl() {
-		return url;
-	}
-	/**
 	 * URL格納メソッド
 	 * @author Arima Genki
 	 * @since 2016/06/016
@@ -76,5 +57,12 @@ public class InsertAction extends ActionSupport {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
+	/**
+	 * エラーメッセージ取得メソッド
+	 * @author Mizuno kaito
+	 * @return エラーメッセージを返す
+	 */
+	public String getInsertErrormsg() {
+		return insertErrormsg;
+	}
 }

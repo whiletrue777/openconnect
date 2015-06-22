@@ -45,7 +45,8 @@
 	<div align="center">
 		<font size="2" color="red"> </font>
 	</div>
-	<h2>アプリ追加</h2>
+	<h2>アプリ追加</h2><br>
+	<s:property value="insertErrormsg"/>
 	<s:form action="InsertAction">
 		<table class="wwFormTable">
 			<tbody>
@@ -63,7 +64,8 @@
 	</s:form>
 
 	<h2>アプリ削除</h2>
-	<s:form action="DeleteAppAction">
+	<s:form action="DeleteAppAction"><br>
+	<s:property value="errormsg"/>
 		<table class="wwFormTable">
 			<tbody>
 				<tr>
@@ -78,7 +80,8 @@
 		</table>
 	</s:form>
 
-	<h2>アプリ変更</h2>
+	<h2>アプリ変更</h2><br>
+	<s:property value="updateErrormsg"/>
 	<s:form action="UpdateAppAction">
 		<table class="wwFormTable">
 			<tbody>
@@ -104,7 +107,7 @@
 	<br>
 	<br>
 	<s:form action="GetAddressAdminAction">
-	<input type="submit" value="アプリ一覧情報取得">
+	<input type="submit" value="アプリ一覧情報再取得">
 		<table style="border: 3px solid #CCC; border-collapse: collapse; width:">
 			<tr>
 				<td	style="height: 3em; border: 2px solid #CCC; background-color: #FFCC99; font-weight: bold; padding: 1px; width: 10%;"

@@ -12,41 +12,33 @@ import jp.co.internous.util.DBconnector;
  * @version 1.0
  */
 public class DeleteAppDAO {
-	int i;
-	/**
-	 * コネクション
-	 */
-	Connection con = null;
-	/**
-	 * 文字列をSQL文にして格納する
-	 */
-	PreparedStatement ps = null;
-	/**
-	 * 結果
-	 */
-	boolean result = false;
 	/**
 	 * アプリを削除するメソッド
 	 * @author Arima Genki
 	 * @since 2015/06/18
-	 * @param id
-	 * @return result
-	 * @throws SQLException
+	 * @param id アプリID
+	 * @return res レスポンスを返す
 	 */
-	public boolean delete(int id) throws SQLException {
-
-		con = DBconnector.getConnection();
+	public boolean delete(int id) {
+		boolean res = false;
+		Connection con = DBconnector.getConnection();
 		try {
 			String sql = "DELETE FROM site WHERE id=?";
-			ps = con.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
-			i = ps.executeUpdate();
-			result = true;
+			int i = ps.executeUpdate();
+			if(i > 0){
+				res = true;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		ps.close();
-		con.close();
-		return result;
+		return res;
 	}
 }

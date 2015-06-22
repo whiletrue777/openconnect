@@ -9,10 +9,18 @@ import java.util.List;
 
 import jp.co.internous.dto.GetAddressDTO;
 import jp.co.internous.util.DBconnector;
-
+/**
+ * GetAddressDAO DBのsiteテーブルからサイト情報を取得してくるクラス
+ * @since 2015/06/21
+ * @author Mizuno Kaito
+ */
 public class GetAddressDAO {
-
-	public List<GetAddressDTO> select() throws SQLException {
+	/**
+	 * DBのsiteテーブルからサイト情報を取得してくるメソッド
+	 * @author Mizuno Kaito
+	 * @return サイト情報リストを返す
+	 */
+	public List<GetAddressDTO> select() {
 		List<GetAddressDTO> siteInfoList = new ArrayList<GetAddressDTO>();
 		Connection con = DBconnector.getConnection();
 
@@ -29,12 +37,13 @@ public class GetAddressDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-
-
 		} finally {
-			con.close();
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-
 		return siteInfoList;
 	}
 }

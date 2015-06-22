@@ -1,8 +1,5 @@
 package jp.co.internous.action;
 
-import java.net.SocketException;
-import java.sql.SQLException;
-
 import jp.co.internous.dao.DeleteAppDAO;
 
 /**
@@ -13,45 +10,28 @@ import jp.co.internous.dao.DeleteAppDAO;
  */
 public class DeleteAppAction {
 	/**
-	 * 結果
+	 * result 結果
+	 * id アプリID
+	 * errormsg エラーメッセージ
 	 */
-	String result = "error";
-	/**
-	 * ID
-	 */
+	private String result = "error";
 	private int id;
-	/**
-	 * エラーメッセージ
-	 */
 	public String errormsg = null;
 	/**
 	 * 入力された値をDから削除し、resultを返すメソッド
 	 * @author Arima Genki
 	 * @since 2015/06/17
-	 * @return result
-	 * @throws SQLException
-	 * @throws SocketException
-	 * @see DeleteAppDAO
+	 * @return result 実行結果を返す
 	 */
-	public String execute() throws SQLException, SocketException {
+	public String execute() {
 		DeleteAppDAO dao = new DeleteAppDAO();
 		if (dao.delete(id)) {
 			result = "success";
-			return result;
+			errormsg = "";
 		} else {
 			errormsg = "入力された値が正しくありません";
-			return result;
 		}
-	}
-
-	/**
-	 * ID取得メソッド
-	 * @author Arima Genki
-	 * @since 2015/06/17
-	 * @return id
-	 */
-	public int getId() {
-		return id;
+		return result;
 	}
 	/**
 	 * ID格納メソッド

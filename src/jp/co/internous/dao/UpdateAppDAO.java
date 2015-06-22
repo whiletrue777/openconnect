@@ -14,44 +14,39 @@ import jp.co.internous.util.DBconnector;
  */
 public class UpdateAppDAO {
 	/**
-	 * コネクション
+	 * res 実行結果
 	 */
-	Connection con = null;
-	/**
-	 * 文字列をSQL文にして格納する
-	 */
-	PreparedStatement ps = null;
-	/**
-	 * 結果
-	 */
-	boolean result = false;
+	private boolean res = false;
 	/**
 	 * アプリを編集するメソッド
 	 * @author Arima Genki
 	 * @since 2015/06/18
-	 * @param id
-	 * @param siteName
-	 * @param url
-	 * @return result
-	 * @throws SQLException
+	 * @param id アプリID
+	 * @param siteName アプリ名
+	 * @param url アプリURL
+	 * @return res レスポンスを返す
 	 */
-	public boolean update(int id, String siteName, String url) throws SQLException {
-		con = DBconnector.getConnection();
+	public boolean update(int id, String siteName, String url) {
+		Connection con = DBconnector.getConnection();
 		try {
 			String sql = "update site set name=?,url=? where id=?";
-			ps = con.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, siteName);
 			ps.setString(2, url);
 			ps.setInt(3, id);
 			int rsCount = ps.executeUpdate();
 			if (rsCount > 0) {
-				result = true;
+				res = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			con.close();
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		return result;
+		return res;
 	}
 }
